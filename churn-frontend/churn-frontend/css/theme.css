@@ -1,0 +1,96 @@
+/* Theme tokens. Light mode is the final palette from the design; dark mode is derived from it.
+   Light:  page #7D7D7D · cards #FFFFFF · navbar #1D1D1D · primary buttons #F5EE50 · card text #202020 · text on page #FFFFFF
+   Every page sets data-theme="light" | "dark" on <html> (js/theme.js). Change colors here, not in the page CSS. */
+
+:root{
+  color-scheme:light;
+  /* surfaces */
+  --bg:#7D7D7D;          /* page background */
+  --card:#FFFFFF;        /* cards */
+  --dark:#1D1D1D;        /* navbar and dark accent cards */
+  --dark2:#2D2D2D;       /* hover/secondary on dark surfaces */
+  --edge:transparent;    /* hairline around cards (dark mode only) */
+  --line:#E3E3E0;        /* borders and dividers on cards */
+  --line-dark:#3A3A3A;   /* borders on dark surfaces */
+  --track:#E9E9E6;       /* empty part of bars and meters */
+  --hover:#F3F3F0;       /* row and menu hover on cards */
+  --input:#FFFFFF;       /* form fields */
+  --grey:#EDEDED;        /* secondary buttons */
+  --grey-hover:#DCDCDC;
+  /* text */
+  --fg:#202020;          /* text on cards */
+  --muted:#636363;       /* secondary text on cards */
+  --bgfg:#FFFFFF;        /* headings on the page background */
+  --bgfg2:#FFFFFF;       /* secondary text on the page background */
+  --on-dark:#F2F2F2;     /* text on dark surfaces */
+  --muted-dark:#ABABAB;
+  --link:#0B57D0;
+  /* brand */
+  --y:#F5EE50; --y2:#E3DB2E; --y-ink:#202020;   /* primary buttons and highlights; ink = text on yellow */
+  --yellow:var(--y); --yellow-deep:var(--y2);
+  /* risk colors (also used for text, so they pass contrast on their tinted backgrounds) */
+  --low:#1E7A48; --low-bg:#D9F3E4;
+  --med:#8F5200; --med-bg:#FFE9C2;
+  --high:#B02A20; --high-bg:#FFD9D4;
+  /* soft tints for icons on the landing page */
+  --blue:#DFE9FF; --blue-i:#3B6FE0; --pink:#FFE0E6; --pink-i:#D6456A;
+  --amber:#FFF0C2; --amber-i:#B8860B; --lilac:#ECE3FF; --lilac-i:#7A4FD6;
+  --chart-bg:#FBF1CF;
+  /* report page */
+  --r-safe:#1D1D1D; --r-watch:#C9C9C3;
+  /* switches */
+  --tgl-off:#CFCFCB; --tgl-knob:#FFFFFF; --tgl-on:#1D1D1D; --tgl-knob-on:#F5EE50;
+}
+
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#121212;
+  --card:#1F1F1F;
+  --dark:#0A0A0A;
+  --dark2:#262626;
+  --edge:#2E2E2E;
+  --line:#313131;
+  --line-dark:#333333;
+  --track:#343434;
+  --hover:#2A2A2A;
+  --input:#171717;
+  --grey:#2E2E2E;
+  --grey-hover:#3B3B3B;
+
+  --fg:#EDEDED;
+  --muted:#A6A6A6;
+  --bgfg:#F2F2F2;
+  --bgfg2:#ABABAB;
+  --on-dark:#EDEDED;
+  --muted-dark:#A6A6A6;
+  --link:#8AB4F8;
+
+  --low:#5FDC8A; --low-bg:#16351F;
+  --med:#F2C14E; --med-bg:#3B2F0E;
+  --high:#FF8F86; --high-bg:#4A1E1B;
+
+  --blue:#26334F; --blue-i:#8FB0FF; --pink:#4A2330; --pink-i:#FF9DB8;
+  --amber:#3B3212; --amber-i:#F2C14E; --lilac:#33284F; --lilac-i:#C3A5FF;
+  --chart-bg:#2E2A14;
+
+  --r-safe:#EDEDED; --r-watch:#6A6A6A;
+  --tgl-off:#4A4A4A; --tgl-knob:#DDDDDD; --tgl-on:#F5EE50; --tgl-knob-on:#202020;
+}
+
+body{background:var(--bg);color:var(--fg)}
+
+/* Page-level text that sits directly on the page background */
+.title-row h1,.hero h1,.sec-head h2{color:var(--bgfg)}
+.title-row p,.hero p.lead,.sec-head p,.trust,footer{color:var(--bgfg2)}
+
+/* Cards that keep a fixed look in both themes need their own local colors */
+.card.yellow{--fg:#202020;--muted:#55521A;--line:rgba(32,32,32,.18);color:#202020}
+.card.dark{--fg:var(--on-dark);--muted:var(--muted-dark);--line:var(--line-dark);color:var(--on-dark)}
+
+/* Visible focus on any background: white ring inside, dark ring outside */
+:focus-visible{outline:2px solid #FFFFFF;outline-offset:0;box-shadow:0 0 0 4px #202020}
+
+/* Theme toggle button (landing, login) */
+.themebtn{width:40px;height:40px;border-radius:50%;background:var(--dark2);color:var(--on-dark);display:grid;place-items:center;font-size:17px;line-height:1;flex:none;transition:background .2s,transform .15s}
+.themebtn:hover{background:var(--line-dark);transform:translateY(-1px)}
+.themebtn.fixed{position:fixed;top:calc(16px + env(safe-area-inset-top,0px));right:16px;z-index:10;background:var(--dark)}

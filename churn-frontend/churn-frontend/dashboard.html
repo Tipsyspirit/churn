@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard · ChurnSight</title>
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/landing.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dash">
+<div class="shell">
+
+  <header class="topbar">
+    <a class="logo" href="index.html"><i></i><span>ChurnSight</span></a>
+    <nav class="tabs" id="tabs" aria-label="Pages">
+      <button type="button" data-view="home" aria-current="page">Home</button>
+      <button type="button" data-view="customers">Customers</button>
+      <button type="button" data-view="predict">Predict</button>
+      <button type="button" data-view="retention">Retention</button>
+      <button type="button" data-view="report">Report</button>
+      <button type="button" data-view="model">Model</button>
+      <button type="button" data-view="activity">Activity</button>
+    </nav>
+    <span class="sp"></span>
+    <span class="rolechip" id="roleChip"></span>
+    <div class="menu">
+      <button class="avatar" id="avatarBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Account menu"></button>
+      <div class="menu-pop" id="menuPop" hidden>
+        <div class="who" id="who"></div>
+        <button type="button" id="newUpload"><span>Upload new dataset</span><span aria-hidden="true">⤴</span></button>
+        <div class="m-sep"></div>
+        <div class="m-h">Settings</div>
+        <button type="button" class="m-sub" data-set="prediction">Prediction settings</button>
+        <button type="button" class="m-sub" data-set="model">Model health</button>
+        <button type="button" class="m-sub" data-set="data">Data management</button>
+        <button type="button" class="m-sub" data-set="alerts">Notifications</button>
+        <button type="button" class="m-sub" data-set="retention">Retention rules</button>
+        <button type="button" class="m-sub" data-set="users">Users &amp; permissions</button>
+        <button type="button" class="m-sub" data-set="account">Account &amp; appearance</button>
+        <div class="m-sep"></div>
+        <button type="button" data-theme-toggle role="switch" aria-checked="false"><span>Dark mode</span><span class="tgl" aria-hidden="true"></span></button>
+        <button type="button" class="m-out" id="signOut">Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HOME ============ -->
+  <div id="view-home" data-viewpane>
+    <div class="title-row" id="top">
+      <div>
+        <h1 id="greet">Home</h1>
+        <p id="subtitle">Upload a customer file to see churn predictions.</p>
+      </div>
+      <div class="actions" id="actions" hidden>
+        <button class="pbtn" type="button" id="reupload">⤴ Upload new</button>
+        <button class="pbtn y" type="button" id="exportBtn">⬇ Export CSV</button>
+      </div>
+    </div>
+
+    <section class="upload" id="uploadView">
+      <div class="dropzone" id="drop">
+        <div class="up-ic" aria-hidden="true">↑</div>
+        <h2>Drop your customer CSV here</h2>
+        <p>The dashboard builds itself once the file is read. Every row is checked, and any row that can't be used is listed with the reason.</p>
+        <code>customer_id, tenure_months, orders_90d, days_since_last_order, support_tickets, avg_order_value, discount_use_pct, churned</code>
+        <p style="font-size:12px">Only <b>churned</b> (0 or 1) is optional. It lets the Model page measure accuracy.</p>
+        <div class="row">
+          <label class="pbtn y" for="file" style="cursor:pointer">Choose file</label>
+          <button class="pbtn" type="button" id="useSample">Use sample data</button>
+          <button class="pbtn" type="button" id="dlSample">Download sample CSV</button>
+          <button class="pbtn" type="button" id="cancelUpload" hidden>Back to dashboard</button>
+        </div>
+        <input id="file" type="file" accept=".csv,text/csv" hidden>
+        <div class="err" id="err" role="alert"></div>
+      </div>
+    </section>
+
+    <main id="board" hidden>
+      <div class="grid">
+        <article class="card light c-report pop" id="reportCard"></article>
+
+        <article class="card light hov c-kpi pop">
+          <div class="kpi-h"><span>Customers</span><span class="ic" style="background:var(--blue);color:var(--blue-i)">C</span></div>
+          <div class="kpi-v mono" id="k-total" data-count="0">0</div>
+          <div class="kpi-d" id="k-total-d"></div>
+        </article>
+        <article class="card dark hov c-kpi pop">
+          <div class="kpi-h"><span>Predicted churn rate</span><span class="ic" style="background:#3a3a3a;color:var(--y)">%</span></div>
+          <div class="kpi-v mono" id="k-rate">0%</div>
+          <div class="kpi-d" id="k-rate-d">Customers with 50%+ churn probability</div>
+        </article>
+        <article class="card light hov c-kpi pop">
+          <div class="kpi-h"><span>High-risk customers</span><span class="ic" style="background:var(--high-bg);color:var(--high)">!</span></div>
+          <div class="kpi-v mono" id="k-high">0</div>
+          <div class="kpi-d" id="k-high-d"></div>
+        </article>
+        <article class="card yellow hov c-kpi pop">
+          <div class="kpi-h"><span>Monthly revenue at risk</span><span class="ic" style="background:#16161622">₹</span></div>
+          <div class="kpi-v mono" id="k-rev">₹0</div>
+          <div class="kpi-d" style="color:#4d4a12">From high-risk customers</div>
+        </article>
+
+        <article class="card dark c-main pop" id="sec-trends">
+          <h3>Customers and high-risk by tenure</h3>
+          <div class="prompt"><span>＋ Show the</span><span class="tag">customers at risk</span><span>for</span><span class="tag">every tenure group</span></div>
+          <div class="legend"><span><i style="background:#e9e9e4"></i>All customers</span><span><i style="background:var(--y)"></i>High risk</span></div>
+          <svg class="chart" id="barChart" viewBox="0 0 640 230" role="img" aria-label="Customers and high-risk customers by tenure in months"></svg>
+        </article>
+
+        <div class="c-side">
+          <article class="card yellow pop">
+            <h3>Average churn risk</h3>
+            <div class="kpi-v mono" id="k-avg">0%</div>
+            <svg class="chart" id="spark" viewBox="0 0 300 70" aria-hidden="true"></svg>
+          </article>
+          <article class="card dark pop" id="sec-actions">
+            <h3>Retention actions</h3>
+            <div class="sub">Suggested for each risk level</div>
+            <div id="actionList" style="display:grid;gap:10px;margin-top:12px"></div>
+          </article>
+        </div>
+
+        <article class="card light c-table pop" id="sec-customers">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><h3>Contact these customers first</h3><button class="linkbtn" type="button" data-go="customers">See all customers →</button></div>
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Customer</th><th>Suggested action</th><th>Last order</th><th>Churn risk</th><th>Status</th><th></th></tr></thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="card light c-donut pop">
+          <h3>Revenue at risk</h3>
+          <div class="sub">Monthly revenue by risk level</div>
+          <div class="donut-wrap">
+            <svg viewBox="0 0 220 120" id="donut" role="img" aria-label="Monthly revenue split by risk level"></svg>
+            <div class="donut-val mono" id="d-val">₹0</div>
+            <div class="donut-lab">medium + high risk</div>
+          </div>
+          <div class="tip-card"><span class="ic">★</span><div><b id="tipTitle"></b><span id="tipText"></span></div></div>
+        </article>
+
+        <article class="card light c-growth pop" id="sec-risk">
+          <h3>Risk groups</h3>
+          <div class="sub">Share of customers in each band</div>
+          <div class="seg" id="seg"></div>
+        </article>
+
+        <article class="card yellow c-line pop">
+          <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><h3>Churn risk by days since last order</h3><span class="sub" style="color:#5b5818">Hover a point</span></div>
+          <svg class="chart" id="lineChart" viewBox="0 0 640 220" style="margin-top:10px" role="img" aria-label="Average churn risk by days since last order"></svg>
+        </article>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ OTHER PAGES (filled by js/views.js) ============ -->
+  <div id="view-customers" data-viewpane hidden>
+    <div class="title-row"><div><h1>Customers</h1><p>Search, filter and sort every customer. Select a row to see why.</p></div></div>
+    <div id="body-customers"></div>
+  </div>
+  <div id="view-predict" data-viewpane hidden>
+    <div class="title-row"><div><h1>Predict</h1><p>Check one customer by hand. The result is saved to your history.</p></div></div>
+    <div id="body-predict"></div>
+  </div>
+  <div id="view-retention" data-viewpane hidden>
+    <div class="title-row"><div><h1>Retention</h1><p>Turn predictions into follow-ups and record whether each customer stayed.</p></div></div>
+    <div id="body-retention"></div>
+  </div>
+  <div id="view-report" data-viewpane hidden>
+    <div id="body-report"></div>
+  </div>
+  <div id="view-model" data-viewpane hidden>
+    <div class="title-row"><div><h1>Model</h1><p>What the model is, what drives its predictions, and how well it performs.</p></div></div>
+    <div id="body-model"></div>
+  </div>
+  <div id="view-activity" data-viewpane hidden>
+    <div class="title-row"><div><h1>Activity</h1><p>Prediction history and the audit log.</p></div></div>
+    <div id="body-activity"></div>
+  </div>
+  <div id="view-settings" data-viewpane hidden>
+    <div class="title-row"><div><h1>Settings</h1><p>Prediction, data, alerts, retention and access.</p></div></div>
+    <div id="body-settings"></div>
+  </div>
+</div>
+
+<!-- Customer detail drawer -->
+<div class="drawer" id="drawer" hidden>
+  <div class="drawer-bg" id="drawerBg"></div>
+  <aside class="drawer-panel" role="dialog" aria-modal="true" aria-label="Customer prediction">
+    <button class="drawer-x" id="drawerX" type="button" aria-label="Close">✕</button>
+    <div id="drawerBody"></div>
+  </aside>
+</div>
+
+<!-- Loading overlay -->
+<div class="loader" id="loader" hidden role="status" aria-live="polite">
+  <div class="loader-box">
+    <div class="orbit"><i></i><i></i><i></i></div>
+    <h2>Analyzing your customers</h2>
+    <ul class="lsteps" id="lsteps">
+      <li>Reading the file</li><li>Checking every row</li><li>Scoring every customer</li><li>Building your dashboard</li>
+    </ul>
+    <div class="pbar"><b id="lbar"></b></div>
+  </div>
+</div>
+<div class="tip" id="tip"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/sample.js"></script>
+<script src="js/data.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/report.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/views.js"></script>
+</body>
+</html>

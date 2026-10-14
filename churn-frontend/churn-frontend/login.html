@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign in · ChurnSight</title>
+<script src="js/theme.js"></script>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/landing.css">
+</head>
+<body class="light">
+<button class="themebtn fixed" type="button" data-theme-toggle aria-label="Switch to dark mode"><span class="ti" aria-hidden="true">☾</span></button>
+<main class="login-page">
+  <section class="login-side">
+    <div class="login-card">
+      <a class="logo" href="index.html"><i></i>ChurnSight</a>
+      <div>
+        <h1>Welcome back</h1>
+        <p class="sub">Sign in to upload a dataset and see your churn predictions.</p>
+      </div>
+
+      <button class="gbtn" id="googleBtn" type="button">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.6 5.9c4.4-4.1 7-10.1 7-17.6z"/><path fill="#FBBC05" d="M10.5 28.7a14.5 14.5 0 0 1 0-9.4l-7.9-6.1a24 24 0 0 0 0 21.6l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.6-5.9c-2.1 1.4-4.9 2.3-8.3 2.3-6.3 0-11.6-4-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+        Continue with Google
+      </button>
+      <p class="gerr" id="gerr" role="alert" hidden></p>
+
+      <!-- Shown when no Google client ID is set yet -->
+      <div class="setup" id="setup" hidden>
+        <b>One-time setup to open Google's sign-in page</b>
+        <ol>
+          <li>Open <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Google Cloud Console → Credentials</a> and create an <b>OAuth client ID</b> of type <b>Web application</b>.</li>
+          <li>Under <b>Authorized redirect URIs</b>, add exactly:
+            <div class="uri"><code id="redirectUri"></code><button type="button" class="copy" id="copyUri">Copy</button></div></li>
+          <li>Paste the <b>Client ID</b> below.</li>
+        </ol>
+        <p class="warn" id="fileWarn" hidden>You opened this page as a file. Google sign-in needs an address like http://localhost:8000. Run <code>python -m http.server 8000</code> in the project folder and open that address.</p>
+        <div class="row">
+          <input id="cid" placeholder="123456789-abc.apps.googleusercontent.com" aria-label="Google client ID" autocomplete="off">
+          <button class="btn primary" type="button" id="saveCid">Save and continue</button>
+        </div>
+      </div>
+
+      <div class="or">or</div>
+      <form id="emailForm" class="lform">
+        <label class="field" for="name">Name
+          <input id="name" name="name" autocomplete="name" placeholder="Your name" required>
+        </label>
+        <label class="field" for="email">Email
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@college.edu" required>
+        </label>
+        <label class="field" for="role">Role (demo)
+          <select id="role" name="role">
+            <option value="analyst">Analyst: upload, predict, manage tasks</option>
+            <option value="admin">Admin: everything, including settings and audit log</option>
+            <option value="viewer">Viewer: read only</option>
+          </select>
+        </label>
+        <button class="btn primary" type="submit">Continue</button>
+      </form>
+      <p class="note">Roles here are for demonstration. Real access control needs a backend.</p>
+    </div>
+  </section>
+
+  <aside class="login-art">
+    <span class="chip"><b>91%</b> churn risk · C-1042 · 94 days since last order</span>
+    <h2>Find the customers who are <em>about to leave</em></h2>
+    <p style="color:#b9bcc0;max-width:40ch">Upload a CSV and the dashboard scores every shopper in seconds.</p>
+    <span class="chip"><b>1,872</b> customers need attention this month</span>
+  </aside>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/store.js"></script>
+<script src="js/auth.js"></script>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var REDIRECT = location.origin + location.pathname;   // must be registered in Google Cloud Console
+  function clientId() { return (window.GOOGLE_CLIENT_ID || "").trim() || (function () { try { return localStorage.getItem("cs_google_client_id") || ""; } catch (e) { return ""; } })(); }
+  function rand() { var a = new Uint8Array(16); crypto.getRandomValues(a); return Array.prototype.map.call(a, function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); }
+  function err(m) { var e = $("gerr"); e.textContent = m; e.hidden = !m; }
+  function finish(user, how) { Auth.setUser(user); Store.audit("Signed in", how, Auth.getUser()); location.replace("dashboard.html"); }
+
+  // 1) Coming back from Google: the ID token is in the URL fragment
+  if (location.hash.indexOf("id_token=") >= 0) {
+    var p = new URLSearchParams(location.hash.slice(1));
+    history.replaceState(null, "", location.pathname);
+    try {
+      var tok = p.get("id_token"), claims = Auth.decodeJwt(tok);
+      var okState = p.get("state") && p.get("state") === sessionStorage.getItem("cs_oauth_state");
+      var okNonce = claims.nonce && claims.nonce === sessionStorage.getItem("cs_oauth_nonce");
+      var okAud = claims.aud === clientId();
+      sessionStorage.removeItem("cs_oauth_state"); sessionStorage.removeItem("cs_oauth_nonce");
+      if (!okState || !okNonce || !okAud) throw new Error("Sign-in response did not match this browser session.");
+      var pending = (function () { try { return localStorage.getItem("cs_pending_role"); } catch (e) { return null; } })();
+      finish({ name: claims.name || claims.email, email: claims.email, picture: claims.picture || "", role: pending || "analyst", google: true }, "Google");
+      return;
+    } catch (e) { err("Google sign-in failed: " + e.message + " Please try again."); }
+  }
+  var q = new URLSearchParams(location.search);
+  if (q.get("error")) err("Google returned: " + q.get("error"));
+
+  if (Auth.getUser() && location.hash.indexOf("id_token=") < 0) { location.replace("dashboard.html"); return; }
+
+  // 2) Continue with Google -> redirect to Google's own sign-in page
+  $("redirectUri").textContent = REDIRECT;
+  $("fileWarn").hidden = location.protocol !== "file:";
+  $("copyUri").addEventListener("click", function () {
+    var b = $("copyUri");
+    function ok() { b.textContent = "Copied"; setTimeout(function () { b.textContent = "Copy"; }, 1500); }
+    if (navigator.clipboard) navigator.clipboard.writeText(REDIRECT).then(ok, function () { b.textContent = "Select and copy"; });
+    else b.textContent = "Select and copy";
+  });
+  function goGoogle() {
+    var id = clientId();
+    if (!id) { $("setup").hidden = false; err("Add your Google client ID to open Google's sign-in page."); $("cid").focus(); return; }
+    if (location.protocol === "file:") { $("setup").hidden = false; $("fileWarn").hidden = false; err("Open the site from a local server first."); return; }
+    var state = rand(), nonce = rand();
+    sessionStorage.setItem("cs_oauth_state", state); sessionStorage.setItem("cs_oauth_nonce", nonce);
+    var url = "https://accounts.google.com/o/oauth2/v2/auth?" + new URLSearchParams({
+      client_id: id, redirect_uri: REDIRECT, response_type: "id_token", scope: "openid email profile",
+      state: state, nonce: nonce, prompt: "select_account"
+    }).toString();
+    location.href = url;
+  }
+  $("googleBtn").addEventListener("click", goGoogle);
+  $("saveCid").addEventListener("click", function () {
+    var v = $("cid").value.trim();
+    if (!/\.apps\.googleusercontent\.com$/.test(v)) { err("That doesn't look like a client ID. It ends with .apps.googleusercontent.com"); return; }
+    try { localStorage.setItem("cs_google_client_id", v); } catch (e) {}
+    err(""); goGoogle();
+  });
+  if (clientId()) $("cid").value = clientId();
+
+  // 3) Email form (demo account)
+  $("emailForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    finish({ name: $("name").value.trim(), email: $("email").value.trim(), picture: "", role: $("role").value, demo: true }, "Email (demo)");
+  });
+})();
+</script>
+</body>
+</html>
