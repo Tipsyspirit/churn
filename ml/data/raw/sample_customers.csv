@@ -1,0 +1,101 @@
+customer_id,Tenure,CityTier,WarehouseToHome,PreferredLoginDevice,PreferredPaymentMode,Gender,HourSpendOnApp,NumberOfDeviceRegistered,PreferedOrderCat,SatisfactionScore,MaritalStatus,NumberOfAddress,Complain,OrderAmountHikeFromlastYear,CouponUsed,OrderCount,DaySinceLastOrder,CashbackAmount,churned
+C-1001,38,1,15,Mobile Phone,Debit Card,Male,3,4,Laptop & Accessory,4,Single,2,0,17,2,5,19,150.0,0
+C-1002,12,1,22,Computer,Credit Card,Female,2,3,Mobile Phone,3,Married,3,1,14,1,2,25,175.5,0
+C-1003,34,1,30,Mobile Phone,UPI,Male,4,5,Laptop & Accessory,5,Single,2,0,20,3,6,10,200.0,0
+C-1004,5,2,58,Phone,COD,Female,1,2,Mobile,2,Single,1,1,22,0,1,60,89.0,1
+C-1005,15,1,45,Mobile Phone,Credit Card,Female,2,3,Fashion,3,Married,4,1,18,2,3,45,145.0,0
+C-1006,47,1,23,Computer,Credit Card,Male,5,6,Laptop & Accessory,5,Married,3,0,19,4,8,23,216.6,0
+C-1007,13,1,65,Mobile Phone,E Wallet,Female,2,2,Mobile Phone,2,Single,2,1,24,1,1,65,260.0,1
+C-1008,12,3,26,Mobile Phone,Debit Card,Male,3,4,Mobile Phone,4,Married,3,0,12,3,10,26,208.3,0
+C-1009,19,1,23,Computer,UPI,Female,4,3,Grocery,5,Single,2,0,16,2,7,23,242.5,0
+C-1010,15,2,51,Mobile Phone,Debit Card,Female,2,3,Others,3,Divorced,4,1,21,2,5,51,160.5,0
+C-1011,14,1,2,Mobile Phone,Credit Card,Male,4,5,Laptop & Accessory,5,Single,2,0,13,1,5,2,339.5,0
+C-1012,49,1,27,Phone,Debit Card,Male,3,4,Grocery,4,Married,3,0,15,2,6,27,127.1,0
+C-1013,47,1,25,Computer,COD,Female,3,5,Mobile,4,Single,2,0,17,3,10,25,97.7,0
+C-1014,5,2,55,Phone,Debit Card,Female,1,2,Fashion,2,Single,2,1,23,0,2,55,136.3,1
+C-1015,4,1,67,Mobile Phone,E Wallet,Male,1,2,Mobile,1,Single,1,1,26,0,0,67,155.7,1
+C-1016,7,3,43,Computer,Credit Card,Female,2,3,Laptop & Accessory,3,Married,3,1,18,1,1,43,135.4,0
+C-1017,45,1,21,Mobile Phone,Debit Card,Male,5,6,Grocery,5,Married,2,0,14,4,9,21,102.1,0
+C-1018,17,2,20,Computer,UPI,Female,3,4,Mobile Phone,4,Single,3,0,15,3,10,20,113.1,0
+C-1019,16,1,21,Mobile Phone,Credit Card,Male,4,5,Fashion,5,Married,4,0,16,2,7,21,307.6,0
+C-1020,32,1,14,Mobile Phone,Debit Card,Female,3,3,Laptop & Accessory,4,Divorced,2,0,12,1,5,14,92.5,0
+C-1021,22,3,10,Computer,Credit Card,Male,5,6,Mobile Phone,5,Single,3,0,19,4,10,10,294.3,0
+C-1022,20,1,25,Mobile Phone,UPI,Female,4,4,Fashion,4,Married,2,0,18,3,6,25,279.1,0
+C-1023,16,1,29,Phone,COD,Male,2,3,Grocery,3,Single,3,1,20,1,2,29,78.3,0
+C-1024,24,1,3,Mobile Phone,Credit Card,Female,4,5,Laptop & Accessory,5,Married,2,0,13,3,6,3,267.4,0
+C-1025,27,2,13,Computer,Debit Card,Male,5,6,Mobile Phone,5,Single,4,0,17,4,11,13,333.1,0
+C-1026,6,1,59,Mobile Phone,UPI,Female,2,2,Mobile,3,Single,2,1,22,1,1,59,177.7,0
+C-1027,10,3,22,Computer,Credit Card,Male,3,4,Fashion,4,Married,3,0,16,2,11,22,177.4,0
+C-1028,6,2,64,Phone,E Wallet,Female,1,2,Grocery,2,Divorced,1,1,25,0,2,64,68.2,0
+C-1029,8,1,33,Mobile Phone,Debit Card,Male,2,3,Others,4,Single,2,1,19,2,3,33,243.8,0
+C-1030,10,1,108,Phone,COD,Female,2,2,Mobile,3,Single,2,1,24,0,1,108,305.9,1
+C-1031,11,1,2,Mobile Phone,Credit Card,Male,3,4,Laptop & Accessory,5,Married,3,0,12,3,5,2,311.9,0
+C-1032,53,1,15,Computer,UPI,Female,5,6,Mobile Phone,5,Married,2,0,15,4,10,15,287.9,0
+C-1033,54,2,19,Phone,Debit Card,Male,4,5,Fashion,4,Single,4,0,18,2,12,19,62.2,0
+C-1034,37,1,2,Mobile Phone,Credit Card,Female,5,6,Laptop & Accessory,5,Married,2,0,17,3,5,2,301.7,0
+C-1035,25,3,30,Mobile Phone,Debit Card,Male,4,4,Mobile,4,Single,3,0,20,4,9,30,327.7,0
+C-1036,37,1,26,Computer,UPI,Female,3,5,Grocery,5,Married,2,0,13,3,11,26,183.9,0
+C-1037,19,1,22,Mobile Phone,COD,Male,3,4,Fashion,4,Divorced,3,1,16,2,7,22,139.9,0
+C-1038,28,1,6,Mobile Phone,Credit Card,Female,5,6,Laptop & Accessory,5,Single,2,0,14,4,11,6,341.3,0
+C-1039,8,2,76,Phone,Debit Card,Female,2,3,Mobile Phone,3,Married,2,1,21,1,1,76,137.6,0
+C-1040,51,1,18,Mobile Phone,UPI,Male,4,5,Grocery,5,Married,3,0,19,3,9,18,235.3,0
+C-1041,20,1,42,Computer,Credit Card,Female,2,3,Mobile,3,Single,2,1,23,1,1,42,195.0,0
+C-1042,28,1,26,Mobile Phone,Debit Card,Male,3,4,Fashion,2,Married,3,1,17,2,2,26,127.7,1
+C-1043,10,3,40,Phone,COD,Female,2,2,Laptop & Accessory,3,Single,2,1,18,1,1,40,94.6,0
+C-1044,15,1,48,Mobile Phone,Credit Card,Female,3,4,Mobile Phone,4,Married,3,0,15,2,6,48,244.6,0
+C-1045,5,2,55,Computer,UPI,Male,2,3,Grocery,3,Single,2,1,20,2,6,55,142.7,0
+C-1046,45,1,24,Mobile Phone,Debit Card,Female,5,6,Mobile,5,Married,2,0,16,4,12,24,115.2,0
+C-1047,27,1,39,Phone,Credit Card,Male,3,4,Fashion,4,Single,3,0,19,3,4,39,234.5,0
+C-1048,35,2,25,Computer,Debit Card,Female,4,5,Laptop & Accessory,4,Divorced,2,0,17,2,5,25,239.9,0
+C-1049,4,1,67,Mobile Phone,E Wallet,Female,1,2,Grocery,2,Single,1,1,24,0,0,67,85.9,0
+C-1050,51,1,27,Mobile Phone,Credit Card,Male,4,5,Mobile Phone,5,Married,3,0,14,3,8,27,192.7,0
+C-1051,55,1,12,Computer,UPI,Female,5,6,Laptop & Accessory,5,Married,2,0,17,4,10,12,249.6,0
+C-1052,57,1,29,Mobile Phone,Debit Card,Male,4,5,Fashion,4,Single,3,0,19,3,10,29,120.8,0
+C-1053,36,1,33,Phone,Credit Card,Female,3,4,Others,4,Married,2,1,21,2,2,33,327.6,0
+C-1054,2,1,118,Mobile Phone,COD,Male,1,2,Mobile,1,Single,1,1,25,0,2,118,140.6,1
+C-1055,36,1,60,Computer,Debit Card,Female,2,3,Grocery,3,Married,3,1,22,1,2,60,279.3,1
+C-1056,12,1,64,Mobile Phone,Credit Card,Female,2,3,Fashion,2,Single,2,1,24,1,3,64,264.7,1
+C-1057,38,1,15,Computer,UPI,Male,4,5,Laptop & Accessory,5,Married,2,0,15,3,5,15,297.9,0
+C-1058,40,1,3,Mobile Phone,Debit Card,Female,5,6,Mobile Phone,5,Single,3,0,18,4,10,3,280.5,0
+C-1059,35,1,7,Mobile Phone,Credit Card,Male,5,6,Laptop & Accessory,5,Married,2,0,16,4,12,7,215.5,0
+C-1060,58,1,6,Computer,Debit Card,Female,4,5,Fashion,5,Married,3,0,17,3,10,6,265.0,0
+C-1061,14,1,21,Mobile Phone,UPI,Male,2,3,Mobile,3,Single,2,1,20,1,8,21,59.3,1
+C-1062,52,1,2,Phone,Credit Card,Female,5,6,Grocery,5,Single,3,0,15,4,9,2,150.1,0
+C-1063,60,1,25,Mobile Phone,Debit Card,Male,5,6,Mobile Phone,5,Married,2,0,18,4,5,25,305.3,0
+C-1064,30,1,18,Computer,UPI,Female,4,4,Laptop & Accessory,4,Married,3,1,19,3,4,18,219.3,0
+C-1065,16,3,59,Mobile Phone,COD,Female,3,4,Fashion,3,Single,2,1,21,2,6,59,138.5,0
+C-1066,25,1,33,Computer,Credit Card,Male,4,5,Mobile,4,Married,3,1,17,3,6,33,179.3,0
+C-1067,2,2,79,Phone,E Wallet,Female,1,2,Mobile Phone,2,Single,1,1,24,0,0,79,148.0,1
+C-1068,59,1,14,Mobile Phone,Debit Card,Male,5,6,Laptop & Accessory,5,Married,2,0,16,4,10,14,272.5,0
+C-1069,18,1,14,Mobile Phone,Credit Card,Female,4,5,Mobile Phone,5,Single,2,0,15,3,5,14,329.5,0
+C-1070,35,1,48,Computer,UPI,Male,3,4,Fashion,4,Married,3,0,18,2,6,48,190.6,0
+C-1071,9,3,37,Phone,Debit Card,Male,2,3,Grocery,3,Single,2,0,20,1,4,37,65.3,0
+C-1072,15,1,61,Computer,COD,Female,3,4,Laptop & Accessory,3,Married,2,1,22,2,2,61,97.0,1
+C-1073,1,1,91,Mobile Phone,E Wallet,Male,1,2,Mobile,1,Single,1,1,25,0,2,91,328.9,1
+C-1074,30,1,45,Mobile Phone,Credit Card,Female,4,5,Others,4,Married,3,1,19,2,4,45,195.2,0
+C-1075,5,3,25,Mobile Phone,Debit Card,Male,2,3,Fashion,3,Single,2,1,18,2,6,25,124.2,0
+C-1076,44,1,13,Computer,UPI,Male,5,6,Laptop & Accessory,5,Married,2,1,15,4,7,13,88.8,0
+C-1077,42,1,30,Phone,Credit Card,Female,3,4,Mobile,4,Single,3,0,17,3,10,30,128.2,0
+C-1078,12,2,88,Mobile Phone,Debit Card,Female,2,2,Grocery,2,Married,2,1,24,1,0,88,115.5,0
+C-1079,50,1,30,Mobile Phone,UPI,Male,5,6,Laptop & Accessory,5,Married,3,0,16,4,12,30,226.8,0
+C-1080,57,1,25,Computer,COD,Female,4,5,Mobile Phone,4,Married,2,0,19,3,5,25,173.5,0
+C-1081,20,1,13,Phone,Credit Card,Male,3,4,Fashion,5,Single,3,1,14,2,4,13,322.8,0
+C-1082,40,3,14,Mobile Phone,Debit Card,Male,4,5,Laptop & Accessory,5,Married,2,1,17,3,6,14,209.5,0
+C-1083,42,1,8,Computer,UPI,Female,5,6,Grocery,5,Single,3,0,15,4,10,8,97.0,0
+C-1084,35,2,41,Mobile Phone,Credit Card,Female,3,4,Mobile,3,Married,2,1,20,2,4,41,130.0,0
+C-1085,27,1,10,Mobile Phone,Debit Card,Male,4,5,Fashion,5,Single,2,0,16,3,8,10,271.3,0
+C-1086,2,1,67,Phone,E Wallet,Female,1,2,Laptop & Accessory,2,Married,1,1,24,0,2,67,294.7,1
+C-1087,8,1,104,Computer,COD,Male,2,3,Mobile Phone,2,Single,2,1,25,1,1,104,252.9,1
+C-1088,21,1,52,Mobile Phone,Credit Card,Female,3,4,Fashion,3,Married,3,1,19,2,4,52,213.2,0
+C-1089,41,1,11,Mobile Phone,Debit Card,Male,5,6,Laptop & Accessory,5,Married,2,1,14,4,8,11,321.8,0
+C-1090,46,1,2,Computer,UPI,Female,5,6,Grocery,5,Single,3,0,17,4,4,2,217.4,0
+C-1091,9,3,30,Mobile Phone,Credit Card,Male,3,4,Mobile Phone,4,Married,2,0,15,2,10,30,346.1,0
+C-1092,52,1,30,Phone,Debit Card,Female,4,5,Fashion,4,Single,3,0,18,3,10,30,152.7,0
+C-1093,15,1,18,Computer,UPI,Male,4,5,Laptop & Accessory,5,Married,2,0,16,3,11,18,297.2,0
+C-1094,19,2,15,Mobile Phone,Credit Card,Female,3,4,Mobile,4,Married,3,1,19,2,5,15,196.1,0
+C-1095,35,1,16,Computer,Debit Card,Male,4,5,Fashion,4,Single,2,0,17,3,10,16,157.3,0
+C-1096,11,3,48,Mobile Phone,COD,Female,2,3,Grocery,2,Married,2,1,22,1,5,48,102.7,1
+C-1097,45,1,30,Mobile Phone,UPI,Male,5,6,Laptop & Accessory,5,Married,3,0,14,4,12,30,162.5,0
+C-1098,15,1,61,Phone,Credit Card,Female,3,4,Mobile Phone,3,Single,2,1,20,2,5,61,164.1,0
+C-1099,49,1,9,Computer,Debit Card,Male,5,6,Fashion,5,Married,2,1,15,4,7,9,307.3,0
+C-1100,12,1,15,Mobile Phone,UPI,Female,3,4,Laptop & Accessory,5,Single,3,0,16,2,4,15,271.8,0

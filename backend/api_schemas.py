@@ -30,7 +30,7 @@ class CustomerFeatures(BaseModel):
     MaritalStatus: str
     NumberOfAddress: int
     Complain: int
-    OrderAmountHikeFromlastYear: float
+    OrderAmountHikeFromlastYear: float      # lowercase "l" in "last"
     CouponUsed: float
     OrderCount: float
     DaySinceLastOrder: float

@@ -22,7 +22,7 @@ def create_access_token(data: dict) -> str:
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 def get_current_user(token: str = Depends(oauth2_scheme),
-                     db: Session = Depends(database.SessionLocal)):
+                        db: Session = Depends(database.get_db)):
     creds_exc = HTTPException(status_code=401, detail="Invalid or expired token")
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])

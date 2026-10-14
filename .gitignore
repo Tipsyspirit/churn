@@ -28,3 +28,9 @@ Thumbs.db
 # Keep model artifacts committed
 # *.joblib
 # *.pkl
+
+# Virtual environments
+.venv/
+**/.venv/
+venv/
+**/venv/

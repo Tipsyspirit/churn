@@ -1,6 +1,6 @@
 [theme]
 primaryColor = "#F5EE50"
-backgroundColor = "#F5F5F4"
+backgroundColor = "#7D7D7D"
 secondaryBackgroundColor = "#FFFFFF"
 textColor = "#202020"
 font = "sans serif"
@@ -8,6 +8,14 @@ font = "sans serif"
 [server]
 port = 8501
 enableCORS = false
+headless = true
 
 [browser]
 gatherUsageStats = false
+
+[client]
+toolbarMode = "minimal"
+showErrorDetails = true
+
+[runner]
+fastReruns = true

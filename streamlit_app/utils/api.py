@@ -39,15 +39,19 @@ def me():
     return _handle(requests.get(f"{API_BASE}/api/auth/me", headers=_headers()))
 
 def predict_one(customer_id, features):
+    url = f"{API_BASE}/api/predict"
+    print(f"[api] POST {url}")          # ← add this
     return _handle(requests.post(
-        f"{API_BASE}/api/predict",
+        url,
         json={"id": customer_id, "features": features},
         headers=_headers(),
     ))
 
 def predict_bulk(customers):
+    url = f"{API_BASE}/api/predict/bulk"
+    print(f"[api] POST {url}")          # ← add this
     return _handle(requests.post(
-        f"{API_BASE}/api/predict/bulk",
+        url,
         json={"customers": customers},
         headers=_headers(),
     ))
