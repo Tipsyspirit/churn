@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+*.egg-info/
+
+# Environment
+.env
+
+# Databases
+*.db
+*.sqlite3
+
+# Model artifacts (optional — remove if you want to version them)
+# *.joblib
+# *.pkl
+
+# Node (if you ever add it)
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Colab
+.ipynb_checkpoints/
