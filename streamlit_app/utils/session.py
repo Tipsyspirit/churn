@@ -1,15 +1,16 @@
 import streamlit as st
 
+DEFAULTS = {
+    "token": None,
+    "user": None,
+    "customers": None,
+    "predictions": None,
+    "upload_report": None,
+    "tasks": [],
+}
+
 def init():
-    defaults = {
-        "token": None,
-        "user": None,
-        "customers": None,      # DataFrame of uploaded customers
-        "predictions": None,    # DataFrame with churn probabilities
-        "upload_report": None,  # dict with valid/failed rows
-        "history": [],
-    }
-    for k, v in defaults.items():
+    for k, v in DEFAULTS.items():
         if k not in st.session_state:
             st.session_state[k] = v
 
@@ -27,5 +28,5 @@ def has_role(*roles) -> bool:
     return u.get("role") in roles
 
 def logout():
-    for k in ["token", "user", "customers", "predictions", "upload_report", "history"]:
-        st.session_state[k] = None
+    for k in DEFAULTS.keys():
+        st.session_state[k] = DEFAULTS[k]

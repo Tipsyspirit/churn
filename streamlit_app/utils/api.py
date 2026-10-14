@@ -38,17 +38,17 @@ def login(email, password):
 def me():
     return _handle(requests.get(f"{API_BASE}/api/auth/me", headers=_headers()))
 
-def predict_bulk(customers: list[dict]):
-    return _handle(requests.post(
-        f"{API_BASE}/api/predict/bulk",
-        json={"customers": customers},
-        headers=_headers(),
-    ))
-
-def predict_one(customer_id, features: dict):
+def predict_one(customer_id, features):
     return _handle(requests.post(
         f"{API_BASE}/api/predict",
         json={"id": customer_id, "features": features},
+        headers=_headers(),
+    ))
+
+def predict_bulk(customers):
+    return _handle(requests.post(
+        f"{API_BASE}/api/predict/bulk",
+        json={"customers": customers},
         headers=_headers(),
     ))
 
