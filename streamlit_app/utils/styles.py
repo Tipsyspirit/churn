@@ -785,6 +785,99 @@ details summary {
 .section-title + .section-sub {
     margin-top: -2px;
 }
+/* =========================================================
+   Fix white-on-white text issues
+   ========================================================= */
+
+/* Main app text — force dark text on light background */
+.stApp,
+.stApp p,
+.stApp span,
+.stApp div,
+.stApp label,
+.stApp .stMarkdown,
+.stApp .stMarkdown p,
+.stApp [data-testid="stMarkdownContainer"],
+.stApp [data-testid="stMarkdownContainer"] p,
+.stApp [data-testid="stText"] {
+    color: var(--fg) !important;
+}
+
+/* Caption text (small grey text under titles) */
+.stApp [data-testid="stCaptionContainer"],
+.stApp [data-testid="stCaptionContainer"] *,
+.stApp .stCaption,
+.stApp small {
+    color: var(--muted) !important;
+}
+
+/* File uploader — fix all inner text */
+[data-testid="stFileUploader"] {
+    color: var(--fg) !important;
+}
+[data-testid="stFileUploader"] *,
+[data-testid="stFileUploader"] label,
+[data-testid="stFileUploader"] span,
+[data-testid="stFileUploader"] p,
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] div {
+    color: var(--fg) !important;
+}
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] [data-testid="stFileUploaderDropzoneInstructions"] small,
+[data-testid="stFileUploaderDropzoneInstructions"] {
+    color: var(--muted) !important;
+}
+
+/* The "Browse files" button inside the uploader keeps its dark bg + white text */
+[data-testid="stFileUploader"] button,
+[data-testid="stFileUploader"] button span,
+[data-testid="stFileUploader"] button div {
+    color: #FFFFFF !important;
+    background: var(--dark) !important;
+}
+
+/* Expander header text */
+[data-testid="stExpander"] summary,
+[data-testid="stExpander"] summary * {
+    color: var(--fg) !important;
+}
+
+/* Sidebar labels should stay light on dark bg */
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] .stMarkdown p,
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+    color: var(--on-dark) !important;
+}
+
+/* Widget labels (above inputs) */
+.stApp [data-testid="stWidgetLabel"],
+.stApp [data-testid="stWidgetLabel"] *,
+.stApp [data-testid="stWidgetLabel"] p {
+    color: var(--fg) !important;
+}
+
+/* Selectbox, multiselect — placeholder text */
+[data-baseweb="select"] [data-testid="stMarkdownContainer"],
+[data-baseweb="select"] span,
+[data-baseweb="select"] div {
+    color: var(--fg) !important;
+}
+[data-baseweb="select"] [aria-hidden="true"] {
+    color: var(--muted) !important;
+}
+
+/* Tables / dataframes headers */
+[data-testid="stDataFrame"] *,
+[data-testid="stTable"] * {
+    color: var(--fg) !important;
+}
+
+/* Tooltip and hover text */
+[data-testid="stTooltipIcon"],
+[data-testid="stTooltipContent"] {
+    color: var(--fg) !important;
+}
 </style>
 """
 
