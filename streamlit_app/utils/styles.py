@@ -2,6 +2,44 @@ import streamlit as st
 
 CSS = """
 <style>
+
+/* =========================================================
+   Dark surfaces: must come LAST and out-rank the global
+   ".stApp div / span / p" color override
+   ========================================================= */
+.stApp .kpi-card.dark,
+.stApp .kpi-card.dark *,
+.stApp .strip.dark,
+.stApp .strip.dark * {
+    color: var(--on-dark) !important;
+}
+.stApp .kpi-card.dark .kpi-label,
+.stApp .kpi-card.dark .kpi-label *,
+.stApp .kpi-card.dark .kpi-sub {
+    color: var(--on-dark-muted) !important;
+}
+.stApp .kpi-card.dark .kpi-value {
+    color: var(--y) !important;
+}
+
+/* Yellow card: keep dark ink */
+.stApp .kpi-card.yellow .kpi-label,
+.stApp .kpi-card.yellow .kpi-label * { color: #55521A !important; }
+.stApp .kpi-card.yellow .kpi-sub     { color: #6E6A1E !important; }
+.stApp .kpi-card.yellow .kpi-value   { color: var(--y-ink) !important; }
+
+/* Risk pills must keep their own colors too */
+.stApp .risk-pill.risk-low  { color: var(--low)  !important; }
+.stApp .risk-pill.risk-med  { color: var(--med)  !important; }
+.stApp .risk-pill.risk-high { color: var(--high) !important; }
+
+/* Primary buttons: dark ink on yellow */
+.stApp .stButton > button,
+.stApp .stButton > button *,
+.stApp .stDownloadButton > button *,
+.stApp .stFormSubmitButton > button * {
+    color: var(--y-ink) !important;
+}
 /* ===== Force dark text on titles, headers, subtitles ===== */
 
 /* Streamlit's native title/header/subheader */
