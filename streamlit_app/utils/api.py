@@ -2,11 +2,35 @@ import os
 import requests
 import streamlit as st
 
-API_BASE = os.getenv("API_BASE", "http://localhost:8000")
+
+def _resolve_api_base() -> str:
+    """
+    Priority:
+      1. Streamlit secrets (cloud deployment)
+      2. Environment variable (local .env)
+      3. Default localhost
+    """
+    val = ""
+    try:
+        val = st.secrets.get("API_BASE", "")
+    except Exception:
+        val = ""
+    if not val:
+        val = os.getenv("API_BASE", "http://localhost:8000")
+    val = str(val).strip().rstrip("/")
+    # Remove accidental "/api" suffix if someone added it
+    if val.endswith("/api"):
+        val = val[:-4]
+    return val
+
+
+API_BASE = _resolve_api_base()
+
 
 def _headers():
     token = st.session_state.get("token")
     return {"Authorization": f"Bearer {token}"} if token else {}
+
 
 def _handle(resp):
     if resp.status_code == 401:
@@ -23,44 +47,81 @@ def _handle(resp):
         raise RuntimeError(f"{resp.status_code}: {detail}")
     return resp.json()
 
+
 def register(name, email, password, role="analyst"):
-    return _handle(requests.post(
-        f"{API_BASE}/api/auth/register",
-        json={"name": name, "email": email, "password": password, "role": role},
-    ))
+    url = f"{API_BASE}/api/auth/register"
+    try:
+        r = requests.post(
+            url,
+            json={"name": name, "email": email, "password": password, "role": role},
+            timeout=30,
+        )
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Cannot reach backend at {API_BASE}: {e}")
+    return _handle(r)
+
 
 def login(email, password):
-    return _handle(requests.post(
-        f"{API_BASE}/api/auth/login",
-        json={"email": email, "password": password},
-    ))
+    url = f"{API_BASE}/api/auth/login"
+    try:
+        r = requests.post(
+            url,
+            json={"email": email, "password": password},
+            timeout=30,
+        )
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Cannot reach backend at {API_BASE}: {e}")
+    return _handle(r)
+
 
 def me():
-    return _handle(requests.get(f"{API_BASE}/api/auth/me", headers=_headers()))
+    url = f"{API_BASE}/api/auth/me"
+    try:
+        r = requests.get(url, headers=_headers(), timeout=30)
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Cannot reach backend at {API_BASE}: {e}")
+    return _handle(r)
+
 
 def predict_one(customer_id, features):
     url = f"{API_BASE}/api/predict"
-    print(f"[api] POST {url}")          # ← add this
-    return _handle(requests.post(
-        url,
-        json={"id": customer_id, "features": features},
-        headers=_headers(),
-    ))
+    try:
+        r = requests.post(
+            url,
+            json={"id": customer_id, "features": features},
+            headers=_headers(),
+            timeout=30,
+        )
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Cannot reach backend at {API_BASE}: {e}")
+    return _handle(r)
+
 
 def predict_bulk(customers):
     url = f"{API_BASE}/api/predict/bulk"
-    print(f"[api] POST {url}")          # ← add this
-    return _handle(requests.post(
-        url,
-        json={"customers": customers},
-        headers=_headers(),
-    ))
+    try:
+        r = requests.post(
+            url,
+            json={"customers": customers},
+            headers=_headers(),
+            timeout=60,
+        )
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Cannot reach backend at {API_BASE}: {e}")
+    return _handle(r)
+
 
 def history():
-    return _handle(requests.get(f"{API_BASE}/api/history", headers=_headers()))
+    url = f"{API_BASE}/api/history"
+    try:
+        r = requests.get(url, headers=_headers(), timeout=30)
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Cannot reach backend at {API_BASE}: {e}")
+    return _handle(r)
+
 
 def health():
     try:
-        return requests.get(f"{API_BASE}/api/health", timeout=3).json()
+        return requests.get(f"{API_BASE}/api/health", timeout=5).json()
     except Exception:
         return {"status": "unreachable"}
