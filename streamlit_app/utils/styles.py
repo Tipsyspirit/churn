@@ -2,6 +2,53 @@ import streamlit as st
 
 CSS = """
 <style>
+/* ===== Force dark text on titles, headers, subtitles ===== */
+
+/* Streamlit's native title/header/subheader */
+h1, h2, h3, h4, h5, h6,
+[data-testid="stHeading"] h1,
+[data-testid="stHeading"] h2,
+[data-testid="stHeading"] h3,
+[data-testid="stHeading"] h4,
+[data-testid="stHeadingWithActionElements"] h1,
+[data-testid="stHeadingWithActionElements"] h2,
+[data-testid="stHeadingWithActionElements"] h3,
+[data-testid="stHeadingWithActionElements"] h4,
+[data-testid="stHeadingContainer"] *,
+[data-testid="stHeader"] * {
+    color: #14141A !important;
+}
+
+/* Streamlit's native title/subheader/caption */
+.stTitle,
+.stHeader,
+.stSubheader,
+.stCaption,
+[data-testid="stCaptionContainer"],
+[data-testid="stCaptionContainer"] * {
+    color: #6B6B75 !important;
+}
+
+/* Force the main title dark */
+.stTitle {
+    color: #14141A !important;
+    font-weight: 700 !important;
+}
+
+/* Any paragraph in the main area */
+.main p,
+[data-testid="stMarkdownContainer"] p {
+    color: #14141A !important;
+}
+
+/* Sidebar should stay light — re-assert */
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3,
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] * {
+    color: #F4F4F2 !important;
+}
 /* =========================================================
    Fonts
    ========================================================= */
