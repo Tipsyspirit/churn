@@ -143,60 +143,75 @@ footer { visibility: hidden; }
 [data-testid="stToolbar"] { display: none !important; }
 [data-testid="stDecoration"] { display: none !important; }
 [data-testid="stStatusWidget"] { display: none !important; }
-
 /* =========================================================
-   Sidebar
+   SIDEBAR — LIGHT
    ========================================================= */
 [data-testid="stSidebar"] {
-    background: var(--dark) !important;
-    border-right: none !important;
-    box-shadow: 1px 0 0 rgba(0, 0, 0, 0.08) !important;
+    background: #FFFFFF !important;
+    border-right: 1px solid #E7E7E3 !important;
+    box-shadow: 1px 0 0 rgba(20, 20, 26, 0.04) !important;
 }
-[data-testid="stSidebar"] > div {
+[data-testid="stSidebar"] > div:first-child {
     padding-top: 12px !important;
 }
-[data-testid="stSidebar"] * {
-    color: var(--on-dark) !important;
-}
-[data-testid="stSidebar"] a {
-    color: var(--on-dark) !important;
+
+/* Nav links */
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a {
+    color: #3A3A42 !important;
     padding: 10px 16px !important;
-    border-radius: var(--r-md) !important;
+    border-radius: 12px !important;
     font-weight: 500 !important;
     font-size: 14px !important;
     margin: 2px 12px !important;
     display: block !important;
-    transition: background 0.15s ease !important;
+    transition: background 0.15s ease, color 0.15s ease !important;
     text-decoration: none !important;
 }
-[data-testid="stSidebar"] a:hover {
-    background: var(--dark-2) !important;
-    color: #FFFFFF !important;
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a:hover {
+    background: #F2F2EF !important;
+    color: #14141A !important;
 }
-[data-testid="stSidebar"] a[aria-current="page"] {
-    background: var(--card) !important;
-    color: var(--fg) !important;
+[data-testid="stSidebar"] [data-testid="stSidebarNav"] a[aria-current="page"] {
+    background: #F5EE50 !important;
+    color: #14141A !important;
     font-weight: 600 !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    box-shadow: 0 1px 2px rgba(20, 20, 26, 0.04) !important;
 }
-[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
-    color: var(--on-dark) !important;
-}
-[data-testid="stSidebarNav"] {
-    padding-top: 16px !important;
-}
-[data-testid="stSidebarNav"]::before {
-    content: "📉  ChurnSight";
+
+/* Logo/branding */
+[data-testid="stSidebar"] [data-testid="stSidebarNav"]::before {
+    content: "ChurnSight";
     display: block;
     font-family: 'Sora', sans-serif;
     font-size: 20px;
     font-weight: 700;
     letter-spacing: -0.02em;
-    color: var(--y) !important;
+    color: #14141A !important;
     padding: 20px 24px 24px;
 }
+
+/* All sidebar text is dark now */
+[data-testid="stSidebar"] * {
+    color: #3A3A42 !important;
+}
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 {
+    color: #14141A !important;
+}
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+    color: #3A3A42 !important;
+}
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"],
+[data-testid="stSidebar"] [data-testid="stWidgetLabel"] * {
+    color: #3A3A42 !important;
+}
+
+/* Collapse chevron */
 [data-testid="stSidebarCollapseButton"] {
-    color: var(--on-dark) !important;
+    color: #3A3A42 !important;
 }
 
 /* =========================================================
