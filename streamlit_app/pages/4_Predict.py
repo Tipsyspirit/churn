@@ -210,8 +210,6 @@ if submitted:
         risk = result.get("risk", "low")
         likely = int(result.get("predicted_churn", 0)) == 1
         threshold = safe_float(result.get("threshold"), 0.5)
-
-        # Risk band marker position: 0–100%
         marker_pct = max(0, min(100, pct))
 
         st.markdown(
@@ -255,7 +253,7 @@ if submitted:
                 </div>
             </div>
             """,
-            unsafe_allow_html=True,
+            unsafe_allow_html=True,     # ← REQUIRED
         )
 
     except Exception as e:
