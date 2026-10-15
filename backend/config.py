@@ -7,8 +7,25 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 480))
 
-DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR}/data/users.db")
-MODEL_PATH = os.getenv("MODEL_PATH", str(BASE_DIR / "artifacts" / "customer_churn_model.joblib"))
+# Detect Render environment
+IS_RENDER = os.getenv("RENDER", "") == "true"
+
+# Choose a writable path
+if IS_RENDER:
+    DATA_DIR = Path("/opt/render/project/src/data")
+else:
+    DATA_DIR = BASE_DIR / "data"
+
+# Make sure the folder exists
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+DEFAULT_DB = f"sqlite:///{DATA_DIR / 'users.db'}"
+DATABASE_URL = os.getenv("DATABASE_URL", DEFAULT_DB)
+
+MODEL_PATH = os.getenv(
+    "MODEL_PATH",
+    str(BASE_DIR / "artifacts" / "customer_churn_model.joblib"),
+)
 
 CORS_ORIGINS = [
     o.strip() for o in os.getenv(
